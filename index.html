@@ -10,33 +10,78 @@
 <div class="container mt-5">
     <div class="card bg-secondary text-light p-4 shadow-lg">
         <h1 class="text-center mb-4">🧠 اختبار الذكاء</h1>
-        <form action="/result" method="post">
+        <form id="quizForm">
 
             <div class="mb-3">
                 <p>1- كم ناتج 2 + 2 ؟</p>
-                <input type="radio" name="q1" value="a"> 3 <br>
-                <input type="radio" name="q1" value="b"> 4 <br>
-                <input type="radio" name="q1" value="c"> 5 <br>
+                <input type="radio" name="q1" value="3"> 3 <br>
+                <input type="radio" name="q1" value="correct"> 4 <br>
+                <input type="radio" name="q1" value="5"> 5 <br>
             </div>
 
             <div class="mb-3">
                 <p>2- ما هو عكس كلمة (سعيد)؟</p>
-                <input type="radio" name="q2" value="a"> حزين <br>
-                <input type="radio" name="q2" value="b"> قوي <br>
-                <input type="radio" name="q2" value="c"> قصير <br>
+                <input type="radio" name="q2" value="correct"> حزين <br>
+                <input type="radio" name="q2" value="قوي"> قوي <br>
+                <input type="radio" name="q2" value="قصير"> قصير <br>
             </div>
 
             <div class="mb-3">
                 <p>3- ما هو الرقم التالي في السلسلة: 2, 4, 6, ?</p>
-                <input type="radio" name="q3" value="a"> 7 <br>
-                <input type="radio" name="q3" value="b"> 9 <br>
-                <input type="radio" name="q3" value="c"> 8 <br>
+                <input type="radio" name="q3" value="7"> 7 <br>
+                <input type="radio" name="q3" value="9"> 9 <br>
+                <input type="radio" name="q3" value="correct"> 8 <br>
             </div>
 
-            <button type="submit" class="btn btn-light w-100">إرسال ✅</button>
+            <button type="button" class="btn btn-light w-100" onclick="checkAnswers()">إرسال ✅</button>
         </form>
+
+        <div id="result" class="text-center mt-3 fs-4 fw-bold"></div>
+        <div id="details" class="mt-3"></div>
     </div>
 </div>
+
+<script>
+function checkAnswers() {
+    let score = 0;
+    const total = 3;
+    let wrong = [];
+
+    // السؤال 1
+    if (document.querySelector('input[name="q1"]:checked')?.value === "correct") {
+        score++;
+    } else {
+        wrong.push("السؤال 1: الجواب الصحيح هو 4");
+    }
+
+    // السؤال 2
+    if (document.querySelector('input[name="q2"]:checked')?.value === "correct") {
+        score++;
+    } else {
+        wrong.push("السؤال 2: الجواب الصحيح هو حزين");
+    }
+
+    // السؤال 3
+    if (document.querySelector('input[name="q3"]:checked')?.value === "correct") {
+        score++;
+    } else {
+        wrong.push("السؤال 3: الجواب الصحيح هو 8");
+    }
+
+    let percentage = Math.round((score / total) * 100);
+
+    document.getElementById("result").innerText =
+        "نتيجتك: " + score + " من " + total + " (" + percentage + "%)";
+
+    if (wrong.length > 0) {
+        document.getElementById("details").innerHTML =
+            "<ul>" + wrong.map(q => "<li>" + q + "</li>").join("") + "</ul>";
+    } else {
+        document.getElementById("details").innerHTML =
+            "<p class='text-success'>👏 كل إجاباتك صحيحة!</p>";
+    }
+}
+</script>
 
 </body>
 </html>
