@@ -16,8 +16,10 @@
     #visitor-count { font-size: 14px; color: gray; margin-top: 15px; }
   </style>
 
-  <!-- ✅ كود عداد الزوار من counter.dev -->
-  <script src="https://cdn.counter.dev/script.js" data-id="50385b"></script>
+  <!-- ✅ كود counter.dev مع المعرّف الخاص بك -->
+  <script src="https://cdn.counter.dev/script.js" 
+          data-id="50385b8a-68aa-4e61-88c6-baeb4d9700ce" 
+          data-utcoffset="3"></script>
 </head>
 <body>
   <div id="quiz">
@@ -35,7 +37,7 @@
   </div>
 
   <script>
-    // ✅ بنك الأسئلة (تقدر تضيف أكثر)
+    // ✅ بنك الأسئلة
     const questions = [
       { q: "ما عاصمة فرنسا؟", options: ["مدريد","باريس","لندن"], answer: "باريس" },
       { q: "أكمل: 2, 4, 8, 16, ?", options: ["24","32","64"], answer: "32" },
@@ -57,7 +59,6 @@
     const timerContainer = document.getElementById("timer");
     const answersContainer = document.getElementById("answers");
 
-    // ✅ بدء الاختبار بعد إدخال الاسم
     function startQuiz() {
       username = document.getElementById("username").value.trim();
       if (!username) {
@@ -69,13 +70,11 @@
       showQuestion();
     }
 
-    // ✅ اختيار عشوائي
     function getRandomQuestions(arr, num) {
       let shuffled = arr.sort(() => 0.5 - Math.random());
       return shuffled.slice(0, num);
     }
 
-    // ✅ التايمر
     function startTimer() {
       timeLeft = 10;
       timerContainer.innerHTML = "⏱️ " + timeLeft;
@@ -90,7 +89,6 @@
       }, 1000);
     }
 
-    // ✅ عرض الأسئلة
     function showQuestion() {
       clearInterval(timer);
       if (currentQuestion < quizQuestions.length) {
@@ -108,7 +106,6 @@
       }
     }
 
-    // ✅ التحقق من الإجابة
     function checkAnswer(answer) {
       let q = quizQuestions[currentQuestion];
       if (answer === q.answer) {
@@ -120,7 +117,6 @@
       showQuestion();
     }
 
-    // ✅ إنهاء الاختبار
     function finishQuiz() {
       questionContainer.innerHTML = "";
       timerContainer.innerHTML = "";
@@ -136,8 +132,8 @@
       }
     }
 
-    // ✅ جلب عدد الزوار من counter.dev
-    fetch("https://cdn.counter.dev/50385b.json")
+    // ✅ عرض العدد من JSON الخاص بـ counter.dev
+    fetch("https://cdn.counter.dev/50385b8a-68aa-4e61-88c6-baeb4d9700ce.json")
       .then(res => res.json())
       .then(data => {
         document.getElementById("count").innerText = data.value;
